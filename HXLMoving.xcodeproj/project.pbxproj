@@ -13,6 +13,8 @@
 		08E868C31CC6288700D65360 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08E868C11CC6288700D65360 /* Main.storyboard */; };
 		08E868C51CC6288700D65360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08E868C41CC6288700D65360 /* Assets.xcassets */; };
 		08E868C81CC6288700D65360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08E868C61CC6288700D65360 /* LaunchScreen.storyboard */; };
+		08E868D21CC62E9900D65360 /* HXLBaiduMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868D11CC62E9900D65360 /* HXLBaiduMapManager.m */; };
+		08E868D61CC64A4000D65360 /* HXLLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868D51CC64A4000D65360 /* HXLLocationService.m */; };
 		97D922A8465F8202B5C22526 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 345C81E37D5AE383118485B5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,10 @@
 		08E868C41CC6288700D65360 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08E868C71CC6288700D65360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08E868C91CC6288700D65360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08E868D01CC62E9900D65360 /* HXLBaiduMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLBaiduMapManager.h; sourceTree = "<group>"; };
+		08E868D11CC62E9900D65360 /* HXLBaiduMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLBaiduMapManager.m; sourceTree = "<group>"; };
+		08E868D41CC64A4000D65360 /* HXLLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLLocationService.h; sourceTree = "<group>"; };
+		08E868D51CC64A4000D65360 /* HXLLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLLocationService.m; sourceTree = "<group>"; };
 		345C81E37D5AE383118485B5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D12FA1B62963FB73B3BCEC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		850B8888B19E666FADFF450E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +71,8 @@
 		08E868B71CC6288700D65360 /* HXLMoving */ = {
 			isa = PBXGroup;
 			children = (
+				08E868D31CC64A1500D65360 /* Location */,
+				08E868CF1CC62E7500D65360 /* BaiduMap */,
 				08E868BB1CC6288700D65360 /* AppDelegate.h */,
 				08E868BC1CC6288700D65360 /* AppDelegate.m */,
 				08E868BE1CC6288700D65360 /* ViewController.h */,
@@ -72,7 +80,6 @@
 				08E868C11CC6288700D65360 /* Main.storyboard */,
 				08E868C41CC6288700D65360 /* Assets.xcassets */,
 				08E868C61CC6288700D65360 /* LaunchScreen.storyboard */,
-				08E868C91CC6288700D65360 /* Info.plist */,
 				08E868B81CC6288700D65360 /* Supporting Files */,
 			);
 			path = HXLMoving;
@@ -81,9 +88,28 @@
 		08E868B81CC6288700D65360 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				08E868C91CC6288700D65360 /* Info.plist */,
 				08E868B91CC6288700D65360 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		08E868CF1CC62E7500D65360 /* BaiduMap */ = {
+			isa = PBXGroup;
+			children = (
+				08E868D01CC62E9900D65360 /* HXLBaiduMapManager.h */,
+				08E868D11CC62E9900D65360 /* HXLBaiduMapManager.m */,
+			);
+			name = BaiduMap;
+			sourceTree = "<group>";
+		};
+		08E868D31CC64A1500D65360 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				08E868D41CC64A4000D65360 /* HXLLocationService.h */,
+				08E868D51CC64A4000D65360 /* HXLLocationService.m */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 		89C3FB8F2AFB631C94C383FE /* Frameworks */ = {
@@ -226,6 +252,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				08E868C01CC6288700D65360 /* ViewController.m in Sources */,
+				08E868D21CC62E9900D65360 /* HXLBaiduMapManager.m in Sources */,
+				08E868D61CC64A4000D65360 /* HXLLocationService.m in Sources */,
 				08E868BD1CC6288700D65360 /* AppDelegate.m in Sources */,
 				08E868BA1CC6288700D65360 /* main.m in Sources */,
 			);
