@@ -1,0 +1,22 @@
+PODS:
+  - BaiduMapKit (2.10.2)
+  - Masonry (0.6.4)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+
+DEPENDENCIES:
+  - BaiduMapKit
+  - Masonry (~> 0.6.4)
+  - ReactiveCocoa (~> 2.5)
+
+SPEC CHECKSUMS:
+  BaiduMapKit: b1706a062597c70ec62a0cca93212cba1d3017e1
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+
+COCOAPODS: 0.39.0
