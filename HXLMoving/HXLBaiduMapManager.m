@@ -8,14 +8,14 @@
 
 #import "HXLBaiduMapManager.h"
 
-#import <BaiduMapAPI_Base/BMKBaseComponent.h>           //引入base相关所有的头文件
-#import <BaiduMapAPI_Map/BMKMapComponent.h>             //引入地图功能所有的头文件
-#import <BaiduMapAPI_Search/BMKSearchComponent.h>       //引入检索功能所有的头文件
-#import <BaiduMapAPI_Cloud/BMKCloudSearchComponent.h>   //引入云检索功能所有的头文件
-#import <BaiduMapAPI_Location/BMKLocationComponent.h>   //引入定位功能所有的头文件
-#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>         //引入计算工具所有的头文件
-#import <BaiduMapAPI_Radar/BMKRadarComponent.h>         //引入周边雷达功能所有的头文件
-#import <BaiduMapAPI_Map/BMKMapView.h>                  //只引入所需的单个头文件
+//#import <BaiduMapAPI_Base/BMKBaseComponent.h>           //引入base相关所有的头文件
+//#import <BaiduMapAPI_Map/BMKMapComponent.h>             //引入地图功能所有的头文件
+//#import <BaiduMapAPI_Search/BMKSearchComponent.h>       //引入检索功能所有的头文件
+//#import <BaiduMapAPI_Cloud/BMKCloudSearchComponent.h>   //引入云检索功能所有的头文件
+//#import <BaiduMapAPI_Location/BMKLocationComponent.h>   //引入定位功能所有的头文件
+//#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>         //引入计算工具所有的头文件
+//#import <BaiduMapAPI_Radar/BMKRadarComponent.h>         //引入周边雷达功能所有的头文件
+//#import <BaiduMapAPI_Map/BMKMapView.h>                  //只引入所需的单个头文件
 
 NSString* const baiduMapKey = @"iD1ydAZ2c5XohFBt7EtEanjnkte9o0f3";
 
@@ -33,4 +33,21 @@ static HXLBaiduMapManager* sharedInstance;
     BMKMapManager* mapManager = [[BMKMapManager alloc] init];
     return [mapManager start:key generalDelegate:nil];
 }
+
+- (void)onGetNetworkState:(int)iError{
+    if (BMKErrorOk == iError){
+        NSLog(@"网络正常");
+    } else {
+        NSLog(@"网络异常[%d]",iError);
+    }
+}
+
+- (void)onGetPermissionState:(int)iError{
+    if (iError == E_PERMISSIONCHECK_OK) {
+        NSLog(@"授权成功");
+    } else {
+        NSLog(@"授权失败[%d]", iError);
+    }
+}
+
 @end

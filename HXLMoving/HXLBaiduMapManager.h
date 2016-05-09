@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaiduMapAPI.h"
 
 extern NSString* const baiduMapKey;
 
-@interface HXLBaiduMapManager : NSObject
+@interface HXLBaiduMapManager : NSObject <BMKGeneralDelegate>
 + (instancetype)sharedInstance;
 + (BOOL)registBaiduMap:(NSString*)key;
 @end
