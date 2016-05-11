@@ -19,6 +19,8 @@
 @interface ViewController ()<BMKMapViewDelegate>
 @property (weak, nonatomic) BMKMapView* mapView;
 @property (strong, nonatomic) HXLBaiduMapLocationServices* locationService;
+
+@property (strong, nonatomic) UIButton* btn;
 @end
 
 @implementation ViewController
@@ -27,6 +29,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self setupBMKMapView];
+    
+    self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.btn.frame = CGRectMake(40, 30, 100, 30);
+    [self.btn setTitle:@"暂停" forState:UIControlStateNormal];
+    [self.btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.view addSubview:self.btn];
+    [self.btn addTarget:self action:@selector(onStop) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)onStop{
+    static BOOL bStop = NO;
+    bStop ? [self.locationService startLocation] : [self.locationService stopLocation];
+    
+    if (!bStop) {
+        NSLog(@"%@", self.locationService.locationArr);
+    }
+    bStop = !bStop;
 }
 
 - (HXLBaiduMapLocationServices*)locationService{
@@ -60,15 +79,20 @@
 //    [mapView setBaiduHeatMapEnabled:YES];       // 显示热力图
     [mapView setShowMapPoi:YES];                // 显示标注
     mapView.zoomLevel = 17;
+    [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
     
 //    // 结构体 observe?
-    [RACObserve(self.locationService, currentCoordinate) subscribeNext:^(id x) {
-        CLLocationCoordinate2D newCoordinate;
-        [x getValue:&newCoordinate];
-        mapView.centerCoordinate = newCoordinate;
-        mapView.showsUserLocation = NO;
-        mapView.userTrackingMode = BMKUserTrackingModeNone;
-        mapView.showsUserLocation = YES;
+//    [RACObserve(self.locationService, currentCoordinate) subscribeNext:^(id x) {
+//        CLLocationCoordinate2D newCoordinate;
+//        [x getValue:&newCoordinate];
+//        mapView.centerCoordinate = newCoordinate;
+//        mapView.userTrackingMode = BMKUserTrackingModeNone;
+//    }];
+    
+    [RACObserve(self.locationService, currentLocation) subscribeNext:^(id x) {
+        BMKUserLocation* location = (BMKUserLocation*)x;
+        [mapView updateLocationData:location];
+        mapView.centerCoordinate = location.location.coordinate;
     }];
     [mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

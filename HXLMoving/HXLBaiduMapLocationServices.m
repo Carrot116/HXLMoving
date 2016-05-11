@@ -12,10 +12,16 @@
 @interface HXLBaiduMapLocationServices () <BMKLocationServiceDelegate>
 
 @property (nonatomic, strong, readwrite) BMKLocationService* locationService;
-
 @end
 
 @implementation HXLBaiduMapLocationServices
+
+- (NSMutableArray*)locationArr{
+    if (!_locationArr) {
+        _locationArr = [NSMutableArray array];
+    }
+    return _locationArr;
+}
 
 - (BMKLocationService*)locationService{
     if (!_locationService){
@@ -56,7 +62,7 @@
  */
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation{
     NSLog(@"didUpdateUserHeading");
-    NSLog(@"%@", userLocation);
+//    NSLog(@"%@", userLocation);
 }
 
 /**
@@ -65,9 +71,12 @@
  */
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
     NSLog(@"didUpdateBMKUserLocation");
-    NSLog(@"%@", userLocation);
+//    NSLog(@"%@", userLocation);
     
+    self.currentLocation = userLocation;
     self.currentCoordinate = userLocation.location.coordinate;
+    NSLog(@"%p", userLocation);
+    [self.locationArr addObject:userLocation];
 }
 
 /**
