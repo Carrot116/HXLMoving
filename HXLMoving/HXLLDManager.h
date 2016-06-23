@@ -15,4 +15,7 @@
 
 @property (strong, nonatomic, readonly) BMKUserLocation* bmkUserLocation;
 @property (assign, nonatomic, readonly) CLLocation* location;
+
+- (void)stopLocation;
+- (void)startLocation;
 @end
