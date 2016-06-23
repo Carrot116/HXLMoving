@@ -12,6 +12,9 @@
 extern NSString* const baiduMapKey;
 
 @interface HXLBaiduMapManager : NSObject <BMKGeneralDelegate>
+
+@property (strong, nonatomic, readonly) BMKMapManager* mapManager;
+
 + (instancetype)sharedInstance;
-+ (BOOL)registBaiduMap:(NSString*)key;
+- (BOOL)registBaiduMap:(NSString*)key;
 @end

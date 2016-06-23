@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [HXLBaiduMapManager registBaiduMap:baiduMapKey];
+    [[HXLBaiduMapManager sharedInstance]registBaiduMap:baiduMapKey];
     return YES;
 }
 

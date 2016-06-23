@@ -10,20 +10,19 @@
 
 
 #import "BaiduMapAPI.h"
-#import "HXLBaiduMapLocationServices.h"
+#import "HXLLLService.h"
 
 #import <Masonry/Masonry.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
-//#import <BaiduMapAPI_Map/BMKMapView.h>
 
-@interface ViewController ()<BMKMapViewDelegate>
+@interface ViewController ()<BMKMapViewDelegate, HXLLLServiceDelegate>
 @property (weak, nonatomic) BMKMapView* mapView;
-@property (strong, nonatomic) HXLBaiduMapLocationServices* locationService;
+@property (strong, nonatomic) HXLLLService* locationService;
 
 @property (strong, nonatomic) UIButton* btn;
 @end
 
-@implementation ViewController
+@implementation ViewController 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,14 +42,15 @@
     bStop ? [self.locationService startLocation] : [self.locationService stopLocation];
     
     if (!bStop) {
-        NSLog(@"%@", self.locationService.locationArr);
+//        NSLog(@"%@", self.locationService.locationArr);
     }
     bStop = !bStop;
 }
 
-- (HXLBaiduMapLocationServices*)locationService{
+- (HXLLLService*)locationService{
     if (!_locationService) {
-        _locationService = [HXLBaiduMapLocationServices new];
+        _locationService = [HXLLLService new];
+        _locationService.delegate = self;
     }
     return _locationService;
 }
@@ -78,22 +78,9 @@
     self.mapView = mapView;
 //    [mapView setBaiduHeatMapEnabled:YES];       // 显示热力图
     [mapView setShowMapPoi:YES];                // 显示标注
-    mapView.zoomLevel = 17;
+    mapView.zoomLevel = 18;
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
     
-//    // 结构体 observe?
-//    [RACObserve(self.locationService, currentCoordinate) subscribeNext:^(id x) {
-//        CLLocationCoordinate2D newCoordinate;
-//        [x getValue:&newCoordinate];
-//        mapView.centerCoordinate = newCoordinate;
-//        mapView.userTrackingMode = BMKUserTrackingModeNone;
-//    }];
-    
-    [RACObserve(self.locationService, currentLocation) subscribeNext:^(id x) {
-        BMKUserLocation* location = (BMKUserLocation*)x;
-        [mapView updateLocationData:location];
-        mapView.centerCoordinate = location.location.coordinate;
-    }];
     [mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -102,6 +89,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark HXLLLServiceDelegate
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
+    [self.mapView updateLocationData:userLocation];
+    self.mapView.centerCoordinate = userLocation.location.coordinate;
 }
 
 @end
