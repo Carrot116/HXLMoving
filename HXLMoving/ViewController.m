@@ -10,16 +10,16 @@
 
 
 #import "BaiduMapAPI.h"
-#import "HXLLLService.h"
+#import "HXLLDManager.h"
 
 #import <Masonry/Masonry.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface ViewController ()<BMKMapViewDelegate, HXLLLServiceDelegate>
+@interface ViewController ()<BMKMapViewDelegate>
 @property (weak, nonatomic) BMKMapView* mapView;
-@property (strong, nonatomic) HXLLLService* locationService;
 
-@property (strong, nonatomic) UIButton* btn;
+@property (strong, nonatomic) HXLLDManager* lldManager;
+
 @end
 
 @implementation ViewController 
@@ -29,37 +29,60 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self setupBMKMapView];
     
-    self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btn.frame = CGRectMake(40, 30, 100, 30);
-    [self.btn setTitle:@"暂停" forState:UIControlStateNormal];
-    [self.btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [self.view addSubview:self.btn];
-    [self.btn addTarget:self action:@selector(onStop) forControlEvents:UIControlEventTouchUpInside];
+    int width = 60, height = 30, hGap = 10;
+    int x = 20;
+    int y = 30;
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    x = x + width + hGap;
+    btn.frame = CGRectMake(x, y, width, height);
+    [btn setTitle:@"启动" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(onStart) forControlEvents:UIControlEventTouchUpInside];
+    
+    btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    x = x + width + hGap;
+    btn.frame = CGRectMake(x, y, width, height);
+    [btn setTitle:@"暂停" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(onPause) forControlEvents:UIControlEventTouchUpInside];
+    
+    btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    x = x + width + hGap;
+    btn.frame = CGRectMake(x, y, width, height);
+    [btn setTitle:@"结束" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(onStop) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (HXLLDManager*)lldManager{
+    if (!_lldManager) {
+        _lldManager = [HXLLDManager new];
+    }
+    return _lldManager;
+}
+
+- (void)onStart{
+    self.lldManager.moveType = HXLMovingTypeWalk;
+    [self.lldManager startMove];
+}
+
+- (void)onPause{
+    [self.lldManager pauseMove];
 }
 
 - (void)onStop{
-    static BOOL bStop = NO;
-    bStop ? [self.locationService startLocation] : [self.locationService stopLocation];
-    
-    if (!bStop) {
-//        NSLog(@"%@", self.locationService.locationArr);
-    }
-    bStop = !bStop;
-}
-
-- (HXLLLService*)locationService{
-    if (!_locationService) {
-        _locationService = [HXLLLService new];
-        _locationService.delegate = self;
-    }
-    return _locationService;
+    self.lldManager.moveType = HXLMovingTypeNone;
+    [self.lldManager endMove];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.mapView viewWillAppear];
     self.mapView.delegate = self;
-    [self.locationService startLocation];
+    [self.lldManager startLocation];
     [self.mapView setShowsUserLocation:NO];            // 先关闭显示定位图层
     [self.mapView setUserTrackingMode:BMKUserTrackingModeFollow];    // 定位模式
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
@@ -69,7 +92,6 @@
     [super viewDidDisappear:animated];
     [self.mapView viewWillDisappear];
     self.mapView.delegate = nil;
-    [self.locationService stopLocation];
 }
 
 - (void)setupBMKMapView{
@@ -79,7 +101,14 @@
 //    [mapView setBaiduHeatMapEnabled:YES];       // 显示热力图
     [mapView setShowMapPoi:YES];                // 显示标注
     mapView.zoomLevel = 18;
+    
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
+    [RACObserve(self.lldManager, bmkUserLocation) subscribeNext:^(id x) {
+        [self.mapView updateLocationData:x];
+    }];
+    [RACObserve(self.lldManager, location) subscribeNext:^(id x) {
+        self.mapView.centerCoordinate = ((CLLocation*)x).coordinate;
+    }];
     
     [mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -89,12 +118,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark HXLLLServiceDelegate
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
-    [self.mapView updateLocationData:userLocation];
-    self.mapView.centerCoordinate = userLocation.location.coordinate;
 }
 
 @end

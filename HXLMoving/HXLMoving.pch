@@ -1,0 +1,25 @@
+//
+//  HXLMoving.pch
+//  HXLMoving
+//
+//  Created by Carrot on 16/6/24.
+//  Copyright © 2016年 Carrot. All rights reserved.
+//
+
+#ifndef HXLMoving_pch
+#define HXLMoving_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#ifdef __OBJC__
+        #ifdef DEBUG
+    #define NSLog(FORMAT, ...) fprintf(stderr,"%s:%d %s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+    #define HXLLOG(...) NSLog(__VA_ARGS__)
+    #else
+        #define HXLLOG(...)
+    #endif
+#endif
+
+#endif /* HXLMoving_pch */

@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class BMKUserLocation;
 @interface HXLDPoint : NSObject
-//@property (nonatomic, strong) CLOFF
+
+@property (assign, nonatomic, readonly) NSTimeInterval timestamp;
+@property (assign, nonatomic, readonly) NSInteger moveid;
+@property (copy, nonatomic, readonly) NSString* posText;
+
+- (instancetype)initWithBMKUserLocation:(BMKUserLocation*)location;
+- (void)updateWithBMKUserLocation:(BMKUserLocation*)location;
 @end

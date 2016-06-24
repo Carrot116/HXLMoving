@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		081431061D1B89DC00FA11FD /* HXLDPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 081431051D1B89DC00FA11FD /* HXLDPoint.m */; };
 		081431091D1B89F900FA11FD /* HXLLDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081431081D1B89F900FA11FD /* HXLLDManager.m */; };
+		0814310E1D1D14F100FA11FD /* HXLMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814310D1D1D14F100FA11FD /* HXLMovement.m */; };
 		08A0D7F11CE0D90F00C96A57 /* HXLLLService.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A0D7F01CE0D90F00C96A57 /* HXLLLService.m */; };
 		08E868BA1CC6288700D65360 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868B91CC6288700D65360 /* main.m */; };
 		08E868BD1CC6288700D65360 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868BC1CC6288700D65360 /* AppDelegate.m */; };
@@ -26,6 +27,9 @@
 		081431051D1B89DC00FA11FD /* HXLDPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLDPoint.m; sourceTree = "<group>"; };
 		081431071D1B89F900FA11FD /* HXLLDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLLDManager.h; sourceTree = "<group>"; };
 		081431081D1B89F900FA11FD /* HXLLDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLLDManager.m; sourceTree = "<group>"; };
+		0814310A1D1CCA0500FA11FD /* HXLMoving.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXLMoving.pch; sourceTree = "<group>"; };
+		0814310C1D1D14F100FA11FD /* HXLMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLMovement.h; sourceTree = "<group>"; };
+		0814310D1D1D14F100FA11FD /* HXLMovement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLMovement.m; sourceTree = "<group>"; };
 		08A0D7EE1CE0D12200C96A57 /* BaiduMapAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaiduMapAPI.h; sourceTree = "<group>"; };
 		08A0D7EF1CE0D90F00C96A57 /* HXLLLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLLLService.h; sourceTree = "<group>"; };
 		08A0D7F01CE0D90F00C96A57 /* HXLLLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLLLService.m; sourceTree = "<group>"; };
@@ -63,12 +67,21 @@
 		081431031D1B899900FA11FD /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
-				081431041D1B89DC00FA11FD /* HXLDPoint.h */,
-				081431051D1B89DC00FA11FD /* HXLDPoint.m */,
 				08FA10E01D1C2E050064D76A /* HXLStorage.h */,
 				08FA10E11D1C2E050064D76A /* HXLStorage.m */,
 			);
 			name = DataStorage;
+			sourceTree = "<group>";
+		};
+		0814310B1D1D14CB00FA11FD /* MoveMent */ = {
+			isa = PBXGroup;
+			children = (
+				081431041D1B89DC00FA11FD /* HXLDPoint.h */,
+				081431051D1B89DC00FA11FD /* HXLDPoint.m */,
+				0814310C1D1D14F100FA11FD /* HXLMovement.h */,
+				0814310D1D1D14F100FA11FD /* HXLMovement.m */,
+			);
+			name = MoveMent;
 			sourceTree = "<group>";
 		};
 		08E868AC1CC6288700D65360 = {
@@ -92,6 +105,7 @@
 		08E868B71CC6288700D65360 /* HXLMoving */ = {
 			isa = PBXGroup;
 			children = (
+				0814310B1D1D14CB00FA11FD /* MoveMent */,
 				081431031D1B899900FA11FD /* DataStorage */,
 				08E868D31CC64A1500D65360 /* Location */,
 				08E868CF1CC62E7500D65360 /* BaiduMap */,
@@ -112,6 +126,7 @@
 			children = (
 				08E868C91CC6288700D65360 /* Info.plist */,
 				08E868B91CC6288700D65360 /* main.m */,
+				0814310A1D1CCA0500FA11FD /* HXLMoving.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -283,6 +298,7 @@
 				08A0D7F11CE0D90F00C96A57 /* HXLLLService.m in Sources */,
 				08E868BD1CC6288700D65360 /* AppDelegate.m in Sources */,
 				08E868BA1CC6288700D65360 /* main.m in Sources */,
+				0814310E1D1D14F100FA11FD /* HXLMovement.m in Sources */,
 				081431061D1B89DC00FA11FD /* HXLDPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +413,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HXLMoving/HXLMoving.pch;
 				INFOPLIST_FILE = HXLMoving/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.baidao.HXLMoving;
@@ -410,6 +428,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HXLMoving/HXLMoving.pch;
 				INFOPLIST_FILE = HXLMoving/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.baidao.HXLMoving;

@@ -39,17 +39,17 @@ static HXLBaiduMapManager* sharedInstance;
 
 - (void)onGetNetworkState:(int)iError{
     if (BMKErrorOk == iError){
-        NSLog(@"网络正常");
+        HXLLOG(@"网络正常");
     } else {
-        NSLog(@"网络异常[%d]",iError);
+        HXLLOG(@"网络异常[%d]",iError);
     }
 }
 
 - (void)onGetPermissionState:(int)iError{
     if (iError == E_PERMISSIONCHECK_OK) {
-        NSLog(@"授权成功");
+        HXLLOG(@"授权成功");
     } else {
-        NSLog(@"授权失败[%d]", iError);
+        HXLLOG(@"授权失败[%d]", iError);
     }
 }
 

@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HXLStorage : NSObject
+typedef void(^StorageCallBackBlock)(BOOL);
 
+@class HXLMovement;
+@interface HXLStorage : NSObject
++ (instancetype)shared;
+
+- (void)storageData:(HXLMovement*)moveData withBlock:(StorageCallBackBlock)block;
 @end
