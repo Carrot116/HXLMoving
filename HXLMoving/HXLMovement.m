@@ -14,7 +14,22 @@
 @end
 
 @implementation HXLMovement
-
+- (NSArray*)testData{
+    NSMutableArray* arr_m = [NSMutableArray array];
+    CLLocation* location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(31.199, 121.520) altitude:0 horizontalAccuracy:0 verticalAccuracy:0 course:0 speed:0 timestamp:[NSDate date]];
+    HXLDPoint* pos = [[HXLDPoint alloc]initWithLocation:location];
+    [arr_m addObject:pos];
+    
+    location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(32.199, 121.520) altitude:0 horizontalAccuracy:0 verticalAccuracy:0 course:0 speed:0 timestamp:[NSDate date]];
+    pos = [[HXLDPoint alloc]initWithLocation:location];
+    [arr_m addObject:pos];
+    
+    location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(33.199, 121.520) altitude:0 horizontalAccuracy:0 verticalAccuracy:0 course:0 speed:0 timestamp:[NSDate date]];
+    pos = [[HXLDPoint alloc]initWithLocation:location];
+    [arr_m addObject:pos];
+    
+    return [arr_m copy];
+}
 - (instancetype)initWithMoveID:(NSInteger)ID moveType:(HXLMovingType)type{
     self = [super init];
     if (self) {

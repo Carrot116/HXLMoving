@@ -13,6 +13,7 @@
 #import "HXLLDManager.h"
 #import "CustomOverlay.h"
 #import "CustomOverlayView.h"
+#import "HXLPolyline.h"
 
 #import <Masonry/Masonry.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) BMKMapView* mapView;
 
 @property (strong, nonatomic) HXLLDManager* lldManager;
+@property (strong, nonatomic) HXLPolyline* polyLine;
 
 @end
 
@@ -88,6 +90,7 @@
     [self.mapView setShowsUserLocation:NO];            // 先关闭显示定位图层
     [self.mapView setUserTrackingMode:BMKUserTrackingModeFollow];    // 定位模式
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
+    [self drawMoveTrace];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -98,11 +101,12 @@
 
 - (void)setupBMKMapView{
     BMKMapView* mapView = [[BMKMapView alloc]init];
+    self.mapView.delegate = self;
     [self.view addSubview:mapView];
     self.mapView = mapView;
 //    [mapView setBaiduHeatMapEnabled:YES];       // 显示热力图
     [mapView setShowMapPoi:YES];                // 显示标注
-    mapView.zoomLevel = 18;
+    mapView.zoomLevel = 10;
     
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
     @weakify(self);
@@ -128,18 +132,28 @@
 
 - (void)drawMoveTrace{
     NSArray* array = [self.lldManager.currentMovement.dataArr copy];
+//    NSArray* array = [self.lldManager.currentMovement testData];
+    
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         HXLDPoint* location = (HXLDPoint*)obj;
         HXLLOG(@"%f,%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
     }];
-    CustomOverlay* overlay = [CustomOverlay customWithPointArray:array];
-    [self.mapView addOverlay:overlay];
+    [self.mapView removeOverlay:self.polyLine];
+    self.polyLine = [HXLPolyline polyLineWithPointArray:array];
+    [self.mapView addOverlay:self.polyLine];
+    HXLLOG(@"%lu", (unsigned long)self.polyLine.pointCount);
+    
+    HXLLOG(@"%f, %f", self.mapView.region.center.latitude, self.mapView.region.center.longitude);
+    HXLLOG(@"%f, %f", self.mapView.region.span.latitudeDelta, self.mapView.region.span.longitudeDelta);
+    HXLLOG(@"%f, %f : %f, %f",self.mapView.region.center.latitude - self.mapView.region.span.latitudeDelta,
+           self.mapView.region.center.latitude + self.mapView.region.span.latitudeDelta,
+           self.mapView.region.center.longitude - self.mapView.region.span.longitudeDelta,
+           self.mapView.region.center.longitude + self.mapView.region.span.longitudeDelta);
+    HXLLOG(@"TEST");
 }
 
-- (BMKOverlayView *)mapView:(BMKMapView *)mapView viewForOverlay:(id <BMKOverlay>)overlay
-{
-    if ([overlay isKindOfClass:[CustomOverlay class]])
-    {
+- (BMKOverlayView*)mapView:(BMKMapView *)mapView viewForOverlay:(id<BMKOverlay>)overlay{
+    if ([overlay isKindOfClass:[BMKPolyline class]]){
         CustomOverlayView* cutomView = [[CustomOverlayView alloc] initWithOverlay:overlay];
         cutomView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:1];
         cutomView.fillColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
@@ -148,5 +162,10 @@
     }
     return nil;
 }
+
+- (void)mapView:(BMKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews{
+    HXLLOG(@"didAddOverlayViews");
+}
+
 
 @end

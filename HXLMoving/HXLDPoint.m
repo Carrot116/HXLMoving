@@ -31,4 +31,16 @@
     self.timestamp = [location.location.timestamp timeIntervalSince1970];
 }
 
+- (instancetype)initWithLocation:(CLLocation*)location{
+    self = [super init];
+    if (self) {
+        [self updateWithLocation:location];
+    }
+    return self;
+}
+- (void)updateWithLocation:(CLLocation*)location{
+    _location = location;
+    self.timestamp = [location.timestamp timeIntervalSince1970];
+}
+
 @end

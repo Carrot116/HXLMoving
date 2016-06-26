@@ -32,6 +32,8 @@ typedef NS_ENUM(NSInteger, HXLMovingState) {
 
 @property (strong, nonatomic, readonly) NSArray* dataArr;
 
+- (NSArray*)testData;
+
 - (instancetype)initWithMoveID:(NSInteger)ID moveType:(HXLMovingType)type;
 - (void)addUserLocation:(BMKUserLocation*)location;
 @end

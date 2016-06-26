@@ -18,4 +18,7 @@
 
 - (instancetype)initWithBMKUserLocation:(BMKUserLocation*)location;
 - (void)updateWithBMKUserLocation:(BMKUserLocation*)location;
+
+- (instancetype)initWithLocation:(CLLocation*)location;
+- (void)updateWithLocation:(CLLocation*)location;
 @end
