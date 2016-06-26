@@ -19,6 +19,7 @@
 @property (assign, nonatomic, readonly) HXLMovingState moveState;
 @property (assign, nonatomic) HXLMovingType moveType;
 
+@property (nonatomic, strong, readonly) HXLMovement* currentMovement; // 当前运动
 - (void)stopLocation;
 - (void)startLocation;
 

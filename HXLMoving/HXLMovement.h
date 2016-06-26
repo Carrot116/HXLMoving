@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, HXLMovingType) {
 };
 
 typedef NS_ENUM(NSInteger, HXLMovingState) {
-    HXLMovingStateMoving   = 0,
+    HXLMovingStateMoving  = 0,
     HXLMovingStatePause   = 1,
     
 };

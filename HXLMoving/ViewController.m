@@ -11,6 +11,8 @@
 
 #import "BaiduMapAPI.h"
 #import "HXLLDManager.h"
+#import "CustomOverlay.h"
+#import "CustomOverlayView.h"
 
 #import <Masonry/Masonry.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -103,11 +105,15 @@
     mapView.zoomLevel = 18;
     
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
+    @weakify(self);
     [RACObserve(self.lldManager, bmkUserLocation) subscribeNext:^(id x) {
+        @strongify(self);
         [self.mapView updateLocationData:x];
     }];
     [RACObserve(self.lldManager, location) subscribeNext:^(id x) {
+        @strongify(self);
         self.mapView.centerCoordinate = ((CLLocation*)x).coordinate;
+        [self drawMoveTrace];
     }];
     
     [mapView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -118,6 +124,29 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)drawMoveTrace{
+    NSArray* array = [self.lldManager.currentMovement.dataArr copy];
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HXLDPoint* location = (HXLDPoint*)obj;
+        HXLLOG(@"%f,%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
+    }];
+    CustomOverlay* overlay = [CustomOverlay customWithPointArray:array];
+    [self.mapView addOverlay:overlay];
+}
+
+- (BMKOverlayView *)mapView:(BMKMapView *)mapView viewForOverlay:(id <BMKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[CustomOverlay class]])
+    {
+        CustomOverlayView* cutomView = [[CustomOverlayView alloc] initWithOverlay:overlay];
+        cutomView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:1];
+        cutomView.fillColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
+        cutomView.lineWidth = 5.0;
+        return cutomView;
+    }
+    return nil;
 }
 
 @end

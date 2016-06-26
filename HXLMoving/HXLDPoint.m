@@ -13,6 +13,7 @@
 @property (assign, nonatomic, readwrite) NSTimeInterval timestamp;
 @property (assign, nonatomic, readwrite) NSInteger moveid;
 @property (copy, nonatomic, readwrite) NSString* posText;
+@property (strong, nonatomic, readwrite) CLLocation* location;
 @end
 
 @implementation HXLDPoint
@@ -26,6 +27,7 @@
 }
 
 - (void)updateWithBMKUserLocation:(BMKUserLocation*)location{
+    _location = location.location;
     self.timestamp = [location.location.timestamp timeIntervalSince1970];
 }
 

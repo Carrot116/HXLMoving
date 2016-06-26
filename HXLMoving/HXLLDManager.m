@@ -20,7 +20,7 @@
 @property (assign, nonatomic, readwrite) CLLocation* location;
 @property (assign, nonatomic, readwrite) HXLMovingState moveState;
 
-@property (nonatomic, strong) HXLMovement* currentMovement;
+@property (nonatomic, strong, readwrite) HXLMovement* currentMovement;
 
 @end
 
@@ -106,6 +106,6 @@
 }
 
 - (void)didFailToLocateUserWithError:(NSError *)error{
-    HXLLOG(@"%@", error);
+//    HXLLOG(@"%@", error);
 }
 @end

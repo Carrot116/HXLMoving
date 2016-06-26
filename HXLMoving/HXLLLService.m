@@ -47,14 +47,14 @@
 }
 
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation{
-    HXLLOG(@"-- Heading --%p %p", userLocation, userLocation.heading);
+//    HXLLOG(@"-- Heading --%p %p", userLocation, userLocation.heading);
     if ([self.delegate respondsToSelector:@selector(didUpdateUserHeading:)]){
         [self.delegate didUpdateUserHeading:userLocation];
     }
 }
 
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
-    HXLLOG(@"** Location ** %p %p",userLocation, userLocation.location);
+//    HXLLOG(@"** Location ** %p %p",userLocation, userLocation.location);
 
     if ([self.delegate respondsToSelector:@selector(didUpdateBMKUserLocation:)]){
         [self.delegate didUpdateBMKUserLocation:userLocation];

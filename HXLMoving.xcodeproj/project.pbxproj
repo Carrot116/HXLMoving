@@ -10,6 +10,8 @@
 		081431061D1B89DC00FA11FD /* HXLDPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 081431051D1B89DC00FA11FD /* HXLDPoint.m */; };
 		081431091D1B89F900FA11FD /* HXLLDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081431081D1B89F900FA11FD /* HXLLDManager.m */; };
 		0814310E1D1D14F100FA11FD /* HXLMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814310D1D1D14F100FA11FD /* HXLMovement.m */; };
+		0826ACA11D1F79EE00E10C52 /* CustomOverlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0826AC9E1D1F79EE00E10C52 /* CustomOverlay.mm */; };
+		0826ACA21D1F79EE00E10C52 /* CustomOverlayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0826ACA01D1F79EE00E10C52 /* CustomOverlayView.mm */; };
 		08A0D7F11CE0D90F00C96A57 /* HXLLLService.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A0D7F01CE0D90F00C96A57 /* HXLLLService.m */; };
 		08E868BA1CC6288700D65360 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868B91CC6288700D65360 /* main.m */; };
 		08E868BD1CC6288700D65360 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E868BC1CC6288700D65360 /* AppDelegate.m */; };
@@ -30,6 +32,10 @@
 		0814310A1D1CCA0500FA11FD /* HXLMoving.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXLMoving.pch; sourceTree = "<group>"; };
 		0814310C1D1D14F100FA11FD /* HXLMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLMovement.h; sourceTree = "<group>"; };
 		0814310D1D1D14F100FA11FD /* HXLMovement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLMovement.m; sourceTree = "<group>"; };
+		0826AC9D1D1F79EE00E10C52 /* CustomOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomOverlay.h; sourceTree = "<group>"; };
+		0826AC9E1D1F79EE00E10C52 /* CustomOverlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomOverlay.mm; sourceTree = "<group>"; };
+		0826AC9F1D1F79EE00E10C52 /* CustomOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomOverlayView.h; sourceTree = "<group>"; };
+		0826ACA01D1F79EE00E10C52 /* CustomOverlayView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomOverlayView.mm; sourceTree = "<group>"; };
 		08A0D7EE1CE0D12200C96A57 /* BaiduMapAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaiduMapAPI.h; sourceTree = "<group>"; };
 		08A0D7EF1CE0D90F00C96A57 /* HXLLLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLLLService.h; sourceTree = "<group>"; };
 		08A0D7F01CE0D90F00C96A57 /* HXLLLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLLLService.m; sourceTree = "<group>"; };
@@ -84,6 +90,25 @@
 			name = MoveMent;
 			sourceTree = "<group>";
 		};
+		0826AC9B1D1F79D700E10C52 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				0826AC9C1D1F79E200E10C52 /* Draw */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		0826AC9C1D1F79E200E10C52 /* Draw */ = {
+			isa = PBXGroup;
+			children = (
+				0826AC9D1D1F79EE00E10C52 /* CustomOverlay.h */,
+				0826AC9E1D1F79EE00E10C52 /* CustomOverlay.mm */,
+				0826AC9F1D1F79EE00E10C52 /* CustomOverlayView.h */,
+				0826ACA01D1F79EE00E10C52 /* CustomOverlayView.mm */,
+			);
+			name = Draw;
+			sourceTree = "<group>";
+		};
 		08E868AC1CC6288700D65360 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +130,7 @@
 		08E868B71CC6288700D65360 /* HXLMoving */ = {
 			isa = PBXGroup;
 			children = (
+				0826AC9B1D1F79D700E10C52 /* Custom */,
 				0814310B1D1D14CB00FA11FD /* MoveMent */,
 				081431031D1B899900FA11FD /* DataStorage */,
 				08E868D31CC64A1500D65360 /* Location */,
@@ -292,12 +318,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				08FA10E21D1C2E050064D76A /* HXLStorage.m in Sources */,
+				0826ACA21D1F79EE00E10C52 /* CustomOverlayView.mm in Sources */,
 				081431091D1B89F900FA11FD /* HXLLDManager.m in Sources */,
 				08E868C01CC6288700D65360 /* ViewController.m in Sources */,
 				08E868D21CC62E9900D65360 /* HXLBaiduMapManager.m in Sources */,
 				08A0D7F11CE0D90F00C96A57 /* HXLLLService.m in Sources */,
 				08E868BD1CC6288700D65360 /* AppDelegate.m in Sources */,
 				08E868BA1CC6288700D65360 /* main.m in Sources */,
+				0826ACA11D1F79EE00E10C52 /* CustomOverlay.mm in Sources */,
 				0814310E1D1D14F100FA11FD /* HXLMovement.m in Sources */,
 				081431061D1B89DC00FA11FD /* HXLDPoint.m in Sources */,
 			);
