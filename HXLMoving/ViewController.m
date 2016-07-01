@@ -14,6 +14,7 @@
 #import "CustomOverlay.h"
 #import "CustomOverlayView.h"
 #import "HXLPolyline.h"
+#import "HXLAnnotation.h"
 
 #import <Masonry/Masonry.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -23,6 +24,9 @@
 
 @property (strong, nonatomic) HXLLDManager* lldManager;
 @property (strong, nonatomic) HXLPolyline* polyLine;
+
+@property (strong, nonatomic) BMKPointAnnotation* startAnnotain;
+@property (strong, nonatomic) BMKPointAnnotation* stopAnnotain;
 
 @end
 
@@ -71,6 +75,11 @@
 - (void)onStart{
     self.lldManager.moveType = HXLMovingTypeWalk;
     [self.lldManager startMove];
+    [self.mapView removeAnnotation:self.startAnnotain];
+    self.startAnnotain = [BMKPointAnnotation new];
+    [self.startAnnotain setCoordinate:self.lldManager.location.coordinate];
+    self.startAnnotain.title = @"起";
+    [self.mapView addAnnotation:self.startAnnotain];
 }
 
 - (void)onPause{
@@ -80,6 +89,11 @@
 - (void)onStop{
     self.lldManager.moveType = HXLMovingTypeNone;
     [self.lldManager endMove];
+    [self.mapView removeAnnotation:self.stopAnnotain];
+    self.stopAnnotain = [BMKPointAnnotation new];
+    [self.stopAnnotain setCoordinate:self.lldManager.location.coordinate];
+    self.stopAnnotain.title = @"终";
+    [self.mapView addAnnotation:self.stopAnnotain];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -106,7 +120,7 @@
     self.mapView = mapView;
 //    [mapView setBaiduHeatMapEnabled:YES];       // 显示热力图
     [mapView setShowMapPoi:YES];                // 显示标注
-    mapView.zoomLevel = 10;
+    mapView.zoomLevel = 17;
     
     [self.mapView setShowsUserLocation:YES];            // 再开始显示定位图层
     @weakify(self);
@@ -132,32 +146,17 @@
 
 - (void)drawMoveTrace{
     NSArray* array = [self.lldManager.currentMovement.dataArr copy];
-//    NSArray* array = [self.lldManager.currentMovement testData];
-    
-    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        HXLDPoint* location = (HXLDPoint*)obj;
-        HXLLOG(@"%f,%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
-    }];
     [self.mapView removeOverlay:self.polyLine];
     self.polyLine = [HXLPolyline polyLineWithPointArray:array];
     [self.mapView addOverlay:self.polyLine];
-    HXLLOG(@"%lu", (unsigned long)self.polyLine.pointCount);
-    
-    HXLLOG(@"%f, %f", self.mapView.region.center.latitude, self.mapView.region.center.longitude);
-    HXLLOG(@"%f, %f", self.mapView.region.span.latitudeDelta, self.mapView.region.span.longitudeDelta);
-    HXLLOG(@"%f, %f : %f, %f",self.mapView.region.center.latitude - self.mapView.region.span.latitudeDelta,
-           self.mapView.region.center.latitude + self.mapView.region.span.latitudeDelta,
-           self.mapView.region.center.longitude - self.mapView.region.span.longitudeDelta,
-           self.mapView.region.center.longitude + self.mapView.region.span.longitudeDelta);
-    HXLLOG(@"TEST");
 }
 
 - (BMKOverlayView*)mapView:(BMKMapView *)mapView viewForOverlay:(id<BMKOverlay>)overlay{
     if ([overlay isKindOfClass:[BMKPolyline class]]){
         CustomOverlayView* cutomView = [[CustomOverlayView alloc] initWithOverlay:overlay];
         cutomView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:1];
-        cutomView.fillColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
-        cutomView.lineWidth = 5.0;
+//        cutomView.fillColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
+        cutomView.lineWidth = 3.0;
         return cutomView;
     }
     return nil;
@@ -165,6 +164,29 @@
 
 - (void)mapView:(BMKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews{
     HXLLOG(@"didAddOverlayViews");
+}
+
+- (BMKAnnotationView*)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation{    NSString *AnnotationViewID = @"startAnnotation";   
+    if (annotation == self.startAnnotain) {
+        AnnotationViewID = @"startAnnotation";   
+    } else if (annotation == self.stopAnnotain){
+        AnnotationViewID = @"stopAnnotation";      
+    } 
+    
+    BMKPinAnnotationView* view;
+    if (AnnotationViewID){
+        view = (BMKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+        if (view == nil) {
+            view = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+            // 设置颜色
+            view.pinColor = BMKPinAnnotationColorPurple;
+            // 从天上掉下效果
+            view.animatesDrop = YES;
+            // 设置可拖拽
+            view.draggable = YES;
+        } 
+    }
+    return view;
 }
 
 

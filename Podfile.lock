@@ -4,6 +4,7 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - Masonry (0.6.4)
+  - MBProgressHUD (0.9.2)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -16,12 +17,14 @@ DEPENDENCIES:
   - BaiduMapKit
   - FMDB (~> 2.6)
   - Masonry (~> 0.6.4)
+  - MBProgressHUD (~> 0.9)
   - ReactiveCocoa (~> 2.5)
 
 SPEC CHECKSUMS:
   BaiduMapKit: b1706a062597c70ec62a0cca93212cba1d3017e1
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
 
 COCOAPODS: 0.39.0
