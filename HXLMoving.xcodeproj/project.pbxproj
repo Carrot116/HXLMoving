@@ -41,6 +41,7 @@
 		08A0D7EE1CE0D12200C96A57 /* BaiduMapAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaiduMapAPI.h; sourceTree = "<group>"; };
 		08A0D7EF1CE0D90F00C96A57 /* HXLLLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLLLService.h; sourceTree = "<group>"; };
 		08A0D7F01CE0D90F00C96A57 /* HXLLLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXLLLService.m; sourceTree = "<group>"; };
+		08B805FD1D2A4F270013FB2F /* HXLUtilsMarcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXLUtilsMarcs.h; sourceTree = "<group>"; };
 		08C96FA31D1FB34100089CFA /* HXLPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLPolyline.h; sourceTree = "<group>"; };
 		08C96FA41D1FB34100089CFA /* HXLPolyline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HXLPolyline.mm; sourceTree = "<group>"; };
 		08CC66CE1D261DB10060C8A2 /* HXLAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXLAnnotation.h; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 				081431031D1B899900FA11FD /* DataStorage */,
 				08E868D31CC64A1500D65360 /* Location */,
 				08E868CF1CC62E7500D65360 /* BaiduMap */,
+				08B805FD1D2A4F270013FB2F /* HXLUtilsMarcs.h */,
 				08E868BB1CC6288700D65360 /* AppDelegate.h */,
 				08E868BC1CC6288700D65360 /* AppDelegate.m */,
 				08E868BE1CC6288700D65360 /* ViewController.h */,
